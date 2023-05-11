@@ -4,6 +4,11 @@ const Login = (props) => {
     return (
         <Container>
             <Content>
+                <CTA>
+                    <CTALogoOne src="/images/cta-logo-one.png" alt="" />
+                </CTA>
+
+
                 <BgImage />
             </Content>
         </Container>
@@ -75,6 +80,33 @@ const BgImage = styled.div`
 
 `
 
+const CTA = styled.div`
+    /* margin-bottom: 2vw; */
+    
+    max-width: 650px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    /* flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0;
+    align-items: center;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    transition-timing-function: ease-out;
+    transition: opacity 0.2s;
+    width: 100%; */
+`
+
+const CTALogoOne = styled.img`
+    margin-bottom: 12px;
+    max-width: 600px;
+    min-height: 1px;
+    display: block;
+    width: 100%;
+`
 
 /*=====  End of using styled-compenents for Login  ======*/
 
