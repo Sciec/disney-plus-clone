@@ -3,7 +3,9 @@ import { Styled, styled } from "styled-components";
 const Login = (props) => {
     return (
         <Container>
-            <Content>Content</Content>
+            <Content>
+                <BgImage />
+            </Content>
         </Container>
     );
 };
@@ -51,6 +53,27 @@ const Content = styled.div`
     padding: 80px 40px;
     height: 100%;
 `;
+
+const BgImage = styled.div`
+    height: 100%;
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(/images/login-background.jpg);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;
+    
+    /* z-index of -1 is added to make sure that it stays below the text/ section element */
+    
+    
+    /* background-position, z-index not needed to render, just it has to absolute with position properties */
+    
+    
+
+`
 
 
 /*=====  End of using styled-compenents for Login  ======*/
