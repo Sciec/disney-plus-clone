@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login.js';
+
 import './App.css';
 
 function App() {
@@ -6,7 +8,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-            
+          <Route path='/' element={<Login />} />
         </Routes>
       </Router>
     </div>
