@@ -1,11 +1,11 @@
-import { Styled, styled } from "styled-components";
+import styled from "styled-components";
 
 const Login = (props) => {
     return (
         <Container>
             <Content>
                 <CTA>
-                    <CTALogoOne src="/images/cta-logo-one.png" alt="" />
+                    <CTALogoOne src="/images/cta-logo-one.svg" alt="" />
                 </CTA>
 
 
