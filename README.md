@@ -2,9 +2,31 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+__In the project, we are going to use ` styled-components ` module, whose installation is incompatible with npm 6+. So, better downgrade to npm 6 or use yarn. [Reference](https://stackoverflow.com/questions/65802896/installing-styled-components-failed-in-react-native)__   
+<br />  
+   
+to use ` yarn ` for the project, update the ' build ' and ' test ' in the scripts.  
+<br />  
+
+```
+'build': 'babel src -d lib',
+'test' : 'jest',
+```  
+<br />  
+
 ## Available Scripts
 
-In the project directory, you can run:
+###  ` yarn start `  
+###  ` yarn build `  
+###  ` yarn test `  
+###  ` yarn eject `    
+<br/>  
+
+They works same as for ` npm ` described below.
+
+
+***
+If we weren't using yarn, we could go with the following (default)
 
 ### `npm start`
 
