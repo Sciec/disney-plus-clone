@@ -1,7 +1,10 @@
 import { Styled } from "styled-components";
+import { Container } from "reactstrap";
 
 const Login = (props) => {
-    return <div> Login </div>
+    <Container>
+
+    </Container>
 }
 
 export default Login;
