@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 // to dispatch and select from Store
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { auth, provider } from '../firebase';
 import { signInWithPopup,} from "firebase/auth";
@@ -17,7 +17,7 @@ import {
 const Header = (props) => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const history = useHistory();
     const userName = useSelector(selectUserName);
     const userPhoto = useSelector(selectUserPhoto);
 
@@ -26,7 +26,7 @@ const Header = (props) => {
         auth.onAuthStateChanged(async (user) => {
             if(user) {
                 setUser(user);
-                navigate.push('/home');
+                history.push('/home');
             }
         })
     }, [userName]);
@@ -123,8 +123,12 @@ const Header = (props) => {
                             <span>SERIES</span>
                         </a>
                         </NavMenu>
-
-                        <UserImg src={userPhoto} alt={userName} />
+                        <SignOut>
+                            <UserImg src={userPhoto} alt={userName} />
+                            <DropDown>
+                                <span onClick={handleAuth}>Sign out</span>
+                            </DropDown>
+                        </SignOut>
                     </> )
             }
             
@@ -270,6 +274,19 @@ const LogIn = styled.a`
 
 const UserImg = styled.img`
     height: 100%;
+`;
+
+const DropDown = styled.div`
+    position: absolute;
+    top: 48px;
+    right: 0;
+    background: rgb(19, 19, 19);
+    border: 1px solid rgba(151, 151, 151, 0.34);
+    border-radius: 4px;
+    box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
+`;
+const SignOut = styled.div`
+    
 `;
 
 
