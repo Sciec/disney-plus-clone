@@ -20,6 +20,16 @@ const Header = (props) => {
     const navigate = useNavigate();
     const userName = useSelector(selectUserName);
     const userPhoto = useSelector(selectUserPhoto);
+
+    useEffect(() => {
+    // this function only runs when the username is updated
+        auth.onAuthStateChanged(async (user) => {
+            if(user) {
+                setUser(user);
+                navigate.push('/home');
+            }
+        })
+    }, [userName]);
     
     const handleAuth = () => {
         // try {
