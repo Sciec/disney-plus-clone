@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 // to dispatch and select from Store
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { auth, provider } from '../firebase';
 import { signInWithPopup,} from "firebase/auth";
@@ -17,7 +17,7 @@ import {
 const Header = (props) => {
 
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const userName = useSelector(selectUserName);
     const userPhoto = useSelector(selectUserPhoto);
 
@@ -26,7 +26,7 @@ const Header = (props) => {
         auth.onAuthStateChanged(async (user) => {
             if(user) {
                 setUser(user);
-                history.push('/home');
+                navigate('/home');
             }
         })
     }, [userName]);
