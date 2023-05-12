@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { auth, provider } from '../firebase';
-import { signInWithPopup,} from "firebase/auth";
+import { signInWithPopup, signOut,} from "firebase/auth";
 
 import { 
     selectUserName,  
     selectUserPhoto, 
+    setSignOutState, 
     setUserLoginDetails
 } from '../features/user/userSlice';
 
@@ -37,18 +38,28 @@ const Header = (props) => {
         // } catch(error)  {
         //     alert(error.message);
         // };
-        signInWithPopup(auth, provider)
-            .then((result) => {
+        
+        if(!userName) {
+            signInWithPopup(auth, provider)
+                .then((result) => {
             // Handle sign-in successful case here
             // console.log(result);
             
                 setUser(result.user);
             
             })
-            .catch((error) => {
+                .catch((error) => {
               // Handle sign-in error case here
                 console.log(error.message);
             });
+        } else if(userName) {
+            signOut(auth, provider)
+                .then(() => {
+                    dispatch(setSignOutState());
+                    navigate('/');
+                })
+                    .catch(err => alert(err.message));
+        }    
     };
 
     const setUser = user => {
@@ -284,9 +295,38 @@ const DropDown = styled.div`
     border: 1px solid rgba(151, 151, 151, 0.34);
     border-radius: 4px;
     box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
+    padding: 10px;
+    font-size: 14px;
+    letter-spacing: 3px;
+    width: auto;
+    opacity: 0;
+
+    span {
+        white-space: nowrap;
+    }
 `;
 const SignOut = styled.div`
-    
+    position: relative;
+    height: 48px;
+    width: 48px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+
+    ${UserImg} {
+        border-radius: 50%;
+        width: 80%;
+        height: 80%;
+    }
+
+    &:hover {
+        ${DropDown} {
+            opacity: 1;
+            transition-duration: 1s;
+            
+        }
+    }
 `;
 
 
