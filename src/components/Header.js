@@ -1,6 +1,29 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { auth, provider } from '../firebase';
+import { signInWithPopup,} from "firebase/auth";
+
 
 const Header = (props) => {
+    
+    const handleAuth = async () => {
+        try {
+            await signInWithPopup(auth, provider);
+        } catch(error)  {
+            alert(error.message);
+        };
+    };
+
+    // const handleAuth = () => {
+    //     auth
+    //         .signInWithPopup(provider)
+    //         .then((result) => {
+    //             console.log(result);
+    //         })
+    //         .catch((error) => {
+    //             alert(error.message);
+    //         });
+    //     }
+
     return(
         <Nav>
             <Logo>
@@ -33,7 +56,9 @@ const Header = (props) => {
                 </a>
             </NavMenu>
 
-            <Login>Login</Login>
+            <LogIn onClick={handleAuth}>
+                Login
+            </LogIn>
         </Nav>
     )
 }
@@ -154,7 +179,7 @@ const NavMenu = styled.div`
     }
 `;
 
-const Login = styled.a`
+const LogIn = styled.a`
     font-weight: 550;
     background-color: rgba(0, 0, 0, 0.6);
     padding: 8px 16px;
