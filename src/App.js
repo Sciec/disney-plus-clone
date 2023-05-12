@@ -7,7 +7,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router path='/auth'>
           <Header />
           <Login />
       </Router>

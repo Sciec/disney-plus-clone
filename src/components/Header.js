@@ -6,12 +6,25 @@ import { signInWithPopup,} from "firebase/auth";
 const Header = (props) => {
     
     const handleAuth = async () => {
-        try {
-            await signInWithPopup(auth, provider);
-        } catch(error)  {
-            alert(error.message);
-        };
+        // try {
+        //     await signInWithPopup(auth, provider);
+        // } catch(error)  {
+        //     alert(error.message);
+        // };
+        signInWithPopup(auth, provider)
+            .then((result) => {
+            // Handle sign-in successful case here
+                console.log(result);
+            })
+            .catch((error) => {
+              // Handle sign-in error case here
+                alert(error.message);
+            });
     };
+
+    
+
+
 
     // const handleAuth = () => {
     //     auth
