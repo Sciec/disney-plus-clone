@@ -20,10 +20,42 @@ to use ` yarn ` for the project, update the ' build ' and ' test ' in the script
 ###  ` yarn build `  
 ###  ` yarn test `  
 ###  ` yarn eject `    
-<br/>  
+  
+They works same as for ` npm ` described below. [Click](https://github.com/Sciec/disney-plus-clone/edit/main/README.md#npm-start) to quickly go to the section.  
+<br />  
+> ___Set-up firebase___  
 
-They works same as for ` npm ` described below.
+Go to firebase website  -->  Go to Console  -->  Create/ Add a project  -->  Name your project 'disneyplus-clone' -->  setup the region and create.  
+  
+In the next step, When your project setup is ready  
+Continue  -->  Project settings  -->  register and get the keys  --> copy the config object and add it in the firebase.js (in the src folder)  
+<br />  
+`Go through the commits to check the way to setup the auth for the project. (Google Popup) `   
+<br />
+`signInWithPopup` is a function provided by the Firebase Authentication API, but it seems to be undefined or not imported correctly in the code. Here is an example of how you can import it correctly:  [(Reference)](https://you.com/search?q=typeerror%3A+%280%2C+_auth.signinwithpopup%29+is+not+a+function.+%28in+%27%280%2C+_auth.signinwithpopup%29%28auth%2C+provider%29%27%2C+%27%280%2C+_auth.signinwithpopup%29%27+is+undefined%29&tbm=youchat&cfr=chatb&cid=c2_49e5ce0f-9089-457d-9be1-f421770caa11)
+  
+```
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
+const auth = getAuth();
+const provider = new GoogleAuthProvider();
+
+signInWithPopup(auth, provider)
+  .then((result) => {
+    // Handle sign-in successful case here
+  })
+  .catch((error) => {
+    // Handle sign-in error case here
+  });
+```  
+  
+  
+
+
+
+
+
+<br />  
 
 ***
 If we weren't using yarn, we could go with the following (default)
