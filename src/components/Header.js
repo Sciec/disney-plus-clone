@@ -1,11 +1,27 @@
+import { useEffect } from "react";
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+// to dispatch and select from Store
+import { useNavigate } from 'react-router-dom';
+
 import { auth, provider } from '../firebase';
 import { signInWithPopup,} from "firebase/auth";
 
+import { 
+    selectUserName,  
+    selectUserPhoto, 
+    setUserLoginDetails
+} from '../features/user/userSlice';
+
 
 const Header = (props) => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const userName = useSelector(selectUserName);
+    const userPhoto = useSelector(selectUserPhoto);
     
-    const handleAuth = async () => {
+    const handleAuth = () => {
         // try {
         //     await signInWithPopup(auth, provider);
         // } catch(error)  {
@@ -14,12 +30,36 @@ const Header = (props) => {
         signInWithPopup(auth, provider)
             .then((result) => {
             // Handle sign-in successful case here
-                console.log(result);
+            // console.log(result);
+            
+                setUser(result.user);
+            
             })
             .catch((error) => {
               // Handle sign-in error case here
-                alert(error.message);
+                console.log(error.message);
             });
+    };
+
+    const setUser = user => {
+
+        
+        /*=============================================
+        =                  dispatch                  =
+        =============================================*/
+        
+        dispatch(
+            setUserLoginDetails({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            })
+        );
+        
+        // dispatching to redux store
+        /*============  End of dispatch ==============*/
+        
+        
     };
 
     
@@ -42,36 +82,45 @@ const Header = (props) => {
             <Logo>
                 <img src="/images/logo.svg" alt="Disney-logo" />
             </Logo> 
-            <NavMenu>
-                <a href='/home' > 
-                    <img src="/images/home-icon.svg" alt="HOME" />
-                    <span>MENU</span>
-                </a>
-                <a href='/home' > 
-                    <img src="/images/search-icon.svg" alt="SEARCH" />
-                    <span>SEARCH</span>
-                </a>
-                <a href='/home' > 
-                    <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
-                    <span>WATCHLIST</span>
-                </a>
-                <a href='/home' > 
-                    <img src="/images/original-icon.svg" alt="ORIGINALS" />
-                    <span>ORIGINALS</span>
-                </a>
-                <a href='/home' > 
-                    <img src="/images/movie-icon.svg" alt="MOVIES" />
-                    <span>MOVIES</span>
-                </a>
-                <a href='/home' > 
-                    <img src="/images/series-icon.svg" alt="SERIES" />
-                    <span>SERIES</span>
-                </a>
-            </NavMenu>
+            {/* ... on Login */}
+            {
+                !userName ?
+                    ( <LogIn onClick={handleAuth}>Login</LogIn> )
+                    : ( <>
+                        <NavMenu>
+                        <a href='/home' > 
+                            <img src="/images/home-icon.svg" alt="HOME" />
+                            <span>MENU</span>
+                        </a>
+                        <a href='/home' > 
+                            <img src="/images/search-icon.svg" alt="SEARCH" />
+                            <span>SEARCH</span>
+                        </a>
+                        <a href='/home' > 
+                            <img src="/images/watchlist-icon.svg"  alt="WATCHLIST" />
+                            <span>WATCHLIST</span>
+                        </a>
+                        <a href='/home' > 
+                            <img src="/images/original-icon.svg" alt="ORIGINALS" />
+                            <span>ORIGINALS</span>
+                        </a>
+                        <a href='/home' > 
+                            <img src="/images/movie-icon.svg" alt="MOVIES" />
+                            <span>MOVIES</span>
+                        </a>
+                        <a href='/home' > 
+                            <img src="/images/series-icon.svg" alt="SERIES" />
+                            <span>SERIES</span>
+                        </a>
+                        </NavMenu>
 
-            <LogIn onClick={handleAuth}>
-                Login
-            </LogIn>
+                        <UserImg src={userPhoto} alt={userName} />
+                    </> )
+            }
+            
+            
+
+            
         </Nav>
     )
 }
@@ -207,6 +256,10 @@ const LogIn = styled.a`
         color: black;
         border-color: transparent;
     }
+`;
+
+const UserImg = styled.img`
+    height: 100%;
 `;
 
 
